@@ -1,1 +1,2 @@
-hello
+load("images.js");
+afficherImage();
