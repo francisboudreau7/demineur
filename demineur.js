@@ -1,6 +1,6 @@
-
-
-
+// INF1015 -TP1-Démineur
+//Auteurs: Francis Boudreau et Laura Bégin
+//2018-11-05
 load("images.js");
 var afficherImage = function(x,y, colormap, image);
 var attendreClic = function();
