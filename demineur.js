@@ -21,14 +21,15 @@ var attendreClic = function () {
     return (souris.x, souris.y);
 
 };
-var placerMines = function (Math.floor(largeur/image.length),
- Math.floor(hauteur/image[1].length), nbMines, x, y) {
-var mines= Array(largeur,hauteur);
+var placerMines = function (largeur,hauteur,nbMines, x, y) {
+var largeurCase= Math.floor(largeur/image.length);
+var hauteurCase=Math.floor(hauteur/image[1].length);
+    var mines= Array(largeurCase,hauteurCase);
 while(nbMine>0){
-var case = {x:Math.floor(Math.random()*largeur),y:Math.floor(Math.random()*hauteur)}
+var case = {x:Math.floor(Math.random()*largeurCase),y:Math.floor(Math.random()*hauteurCase)}
 if(mines[case.x][case.y]==false)
-&& Math.floor(x/largeur)!=case.x 
-&&Math.floor(y/hauteur)!=case.y{
+&& Math.floor(x/largeurCase)!=case.x 
+&&Math.floor(y/hauteurCase)!=case.y{
     mines[case.x][case.y]=true;
     nbMines-=1;
 }
@@ -38,5 +39,8 @@ if(mines[case.x][case.y]==false)
 
 var demineur = function (largeur, hauteur, nbMines) {};
 
+setScreenMode(largeur, hauteur);
+attendreClic();
+placerMines(largeur,hauteur,nbMines, x, y);
 
 var testDemineur = function () {};
