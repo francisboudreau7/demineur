@@ -262,20 +262,28 @@ var attendreClic = function () {
         var souris = getMouse();
         pause(0.01);
     } while (souris.down == false);
-    return ([souris.x, souris.y]);
+    var tuile=[souris.x/images[1].length, souris.y/images[1][1].length];
+    return (tuile);
 
 };
 var placerMines = function (largeur,hauteur,nbMines, x, y) {
 
     var mines= Array(largeur);
+    
     for (var i=0;i<largeur;i++){
         mines[i]= Array(hauteur);
     }
-while(nbMine>0){
+    
+    for(var i=0;i<largeur;i++){
+        for(var j=0;j<hauteur;j++){
+        mines[i][j]=false;
+        }
+    }
+while(nbMines>0){
 var cases = {x:Math.floor(Math.random()*largeur),y:Math.floor(Math.random()*hauteur)};
 if(mines[cases.x][cases.y]==false
-&& Math.floor(x/(largeur*images[1].length))!=cases.x
-&&Math.floor(y/hauteur*images[1][1].length)!=cases.y){
+&& Math.floor(x)!=cases.x
+&&Math.floor(y)!=cases.y){
     mines[cases.x][cases.y]=true;
     nbMines-=1;
 }
@@ -285,8 +293,8 @@ if(mines[cases.x][cases.y]==false
 
 var afficherTuiles=function(largeurCases,hauteurCases,largeur,hauteur){
     setScreenMode(largeur*largeurCases, hauteur*hauteurCases);
-    for(var i=0;i<=hauteur*hauteurCases;i=+hauteurCases){
-        for(var j=0;j<=largeur*largeurCases;j=+largeurCases){
+    for(var i=0;i<hauteur*hauteurCases;i+=hauteurCases){
+        for(var j=0;j<largeur*largeurCases;j+=largeurCases){
             afficherImage(j,i,colormap,images[0]);
         }
     }
@@ -297,8 +305,11 @@ var largeurCases=images[1].length;
 var hauteurCases=images[1][1].length;
 var nbCasesHauteur=Math.floor(largeur/images[1].length);
 var nbCasesLargeur=Math.floor(hauteur/images[1][1].length);
+afficherTuiles(largeurCases,hauteurCases,largeur,hauteur);
 var souris = attendreClic();
+afficherImage()
 placerMines(largeurCases,hauteurCases,nbMines, souris[0], souris[1]);
+
 };
 
 
