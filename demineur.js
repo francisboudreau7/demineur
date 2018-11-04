@@ -315,12 +315,13 @@ var devoilerMinesAdj=function(x,y,largeur,hauteur,mines){
 var nbMines;
     for (var i=x-1;i<=x+1;i++){
         for(var j=y-1;j<=y+1;j++){
-            if(i>=0&&i<=largeur&&j>=0&&j<=hauteur){
-                nbMines=compterMines(mines,x,y,largeur,hauteur);
+            if(i>=0&&i<largeur&&j>=0&&j<hauteur){
+                nbMines=compterMines(mines,i,j,largeur,hauteur);
+                
                 if(nbMines==0){
-                afficherImage(x*16,y*16,colormap,images[0]);
+                afficherImage(i*16,j*16,colormap,images[0]);
                 }else{
-                 afficherImage(x*16,y*16,colormap,images[nbMines]);    
+                 afficherImage(i*16,j*16,colormap,images[nbMines]);    
                 }
             }
         }
@@ -330,7 +331,7 @@ var demineur = function (largeur, hauteur, nbMines) {
 var finPartie=false;
 var largCases=images[1].length;
 var hautCases=images[1][1].length;
-var minesDevoile;
+
 var nbCasesHauteur=Math.floor(largeur/images[1].length);
 var nbCasesLargeur=Math.floor(hauteur/images[1][1].length);
 var nbMinesAdj;
@@ -339,14 +340,14 @@ afficherTuiles(largCases,hautCases,largeur,hauteur);
 var souris = attendreClic();
 afficherImage(souris[0]*largCases,souris[1]*hautCases,colormap,images[0]);
 var mines=placerMines(largCases,hautCases,nbMines, souris[0], souris[1]);
-var minesDevoile=mines;
+
 while(finPartie==false){
     souris=attendreClic();
     if (mines[souris[0]][souris[1]]==false){
         nbMinesAdj=compterMines(mines,souris[0],souris[1],largeur,hauteur);
         if(nbMinesAdj!=0){
         afficherImage(souris[0]*largCases,souris[1]*hautCases,colormap,images[nbMinesAdj]);
-
+        
         }else{devoilerMinesAdj(souris[0],souris[1],largeur,hauteur,mines);
         }
     
