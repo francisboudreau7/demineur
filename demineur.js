@@ -262,7 +262,7 @@ var attendreClic = function () {
         var souris = getMouse();
         pause(0.01);
     } while (souris.down == false);
-    var tuile=[souris.x/images[1].length, souris.y/images[1][1].length];
+    var tuile=[Math.floor(souris.x/images[1].length), Math.floor(souris.y/images[1][1].length)];
     return (tuile);
 
 };
@@ -288,27 +288,76 @@ if(mines[cases.x][cases.y]==false
     nbMines-=1;
 }
 }
-
+return(mines);
 };
 
 var afficherTuiles=function(largeurCases,hauteurCases,largeur,hauteur){
     setScreenMode(largeur*largeurCases, hauteur*hauteurCases);
     for(var i=0;i<hauteur*hauteurCases;i+=hauteurCases){
         for(var j=0;j<largeur*largeurCases;j+=largeurCases){
-            afficherImage(j,i,colormap,images[0]);
+            afficherImage(j,i,colormap,images[11]);
         }
     }
 };
-
+var compterMines=function(mines,x,y,largeur,hauteur){
+var nbMinesAdj=0;
+    for (var i=x-1;i<=x+1;i++){
+        for(var j=y-1;j<=y+1;j++){
+            if(i>=0&&i<=largeur&&j>=0&&j<=hauteur){
+                if(mines[i][j]==true)
+                nbMinesAdj+=1;
+            }
+        }
+    }
+    return(nbMinesAdj);
+};
+var devoilerMinesAdj=function(x,y,largeur,hauteur,mines){
+var nbMines;
+    for (var i=x-1;i<=x+1;i++){
+        for(var j=y-1;j<=y+1;j++){
+            if(i>=0&&i<=largeur&&j>=0&&j<=hauteur){
+                nbMines=compterMines(mines,x,y,largeur,hauteur);
+                if(nbMines==0){
+                afficherImage(x*16,y*16,colormap,images[0]);
+                }else{
+                 afficherImage(x*16,y*16,colormap,images[nbMines]);    
+                }
+            }
+        }
+    }
+};
 var demineur = function (largeur, hauteur, nbMines) {
-var largeurCases=images[1].length;
-var hauteurCases=images[1][1].length;
+var finPartie=false;
+var largCases=images[1].length;
+var hautCases=images[1][1].length;
+var minesDevoile;
 var nbCasesHauteur=Math.floor(largeur/images[1].length);
 var nbCasesLargeur=Math.floor(hauteur/images[1][1].length);
-afficherTuiles(largeurCases,hauteurCases,largeur,hauteur);
+var nbMinesAdj;
+
+afficherTuiles(largCases,hautCases,largeur,hauteur);
 var souris = attendreClic();
-afficherImage()
-placerMines(largeurCases,hauteurCases,nbMines, souris[0], souris[1]);
+afficherImage(souris[0]*largCases,souris[1]*hautCases,colormap,images[0]);
+var mines=placerMines(largCases,hautCases,nbMines, souris[0], souris[1]);
+var minesDevoile=mines;
+while(finPartie==false){
+    souris=attendreClic();
+    if (mines[souris[0]][souris[1]]==false){
+        nbMinesAdj=compterMines(mines,souris[0],souris[1],largeur,hauteur);
+        if(nbMinesAdj!=0){
+        afficherImage(souris[0]*largCases,souris[1]*hautCases,colormap,images[nbMinesAdj]);
+
+        }else{devoilerMinesAdj(souris[0],souris[1],largeur,hauteur,mines);
+        }
+    
+    }else {
+        afficherImage(souris[0]*largCases,souris[1]*hautCases,colormap,images[10]);
+        finPartie=true;
+        break;
+    }
+
+
+}
 
 };
 
