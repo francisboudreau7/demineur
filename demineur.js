@@ -268,26 +268,28 @@ var attendreClic = function () {
 };
 var placerMines = function (largeur,hauteur,nbMines, x, y) {
     var i,j;
+    var nbPlace=0;
     var mines= Array(largeur);
     
     for (var i=0;i<largeur;i++){
         mines[i]= Array(hauteur);
     }
     
-    for(var i=0;i<largeur;i++){
-        for(var j=0;j<hauteur;j++){
-        mines[i][j]=false;
-        }
-    }
-while(nbMines>0){
+mines[x][y]=false;
+while(nbPlace<nbMines){
 i=Math.floor(Math.random()*largeur);
 j=Math.floor(Math.random()*hauteur);
-if(mines[i][j]==false
-&& Math.floor(x)!=i
-&&Math.floor(y)!=j){
-    mines[cases.x][cases.y]=true;
-    nbMines--;
+if(mines[i][j]==null){
+    mines[i][j]=true;
+    nbPlace++;
+    }
 }
+for(var i=0;i<largeur;i++){
+    for(var j=0;j<hauteur;j++){
+        if(mines[i][j]!=true){
+            mines[i][j]=false;
+        }
+    }
 }
 return(mines);
 };
@@ -378,8 +380,8 @@ var nbMinesAdj;
 var casesDevoile=creerCasesDevoile(hauteur,largeur);
 afficherTuiles(largCases,hautCases,largeur,hauteur);
 var souris = attendreClic();
+var mines=placerMines(largeur,hauteur,nbMines, souris[0], souris[1]);
 afficherImage(souris[0]*largCases,souris[1]*hautCases,colormap,images[0]);
-var mines=placerMines(largCases,hautCases,nbMines, souris[0], souris[1]);
 
 while(finPartie==false){
     souris=attendreClic();
