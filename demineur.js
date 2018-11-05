@@ -363,8 +363,9 @@ var verifierCasesDevoile= function(casesDevoile,nbMines,largeur,hauteur){
 var devoilerMinesFin=function(mines,largeur,hauteur,x,y){
     for(var i=0;i<largeur;i++){
         for (var j=0;j<hauteur;j++){
-            if (mines[i][j]==true&&i!=x&&j!=y){
-                afficherImage(i*16,j*16,colormap,images[9]);    
+            if (mines[i][j]==true){
+                afficherImage(i*16,j*16,colormap,images[9]);
+                afficherImage(x*16,y*16,colormap,images[10]);    
             }
     
         }
