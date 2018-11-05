@@ -407,6 +407,9 @@ if(partieGagnee==true){finPartie==true;break;}
 devoilerMinesFin(mines,largeur,hauteur,souris[0],souris[1]);
 };
 
-
+if(partieGagnee==true){
+   alert("vous avez gagné!!");
+}else{
+    alert("Dommage! vous avez perdu!"}
 
 var testDemineur = function () {};
