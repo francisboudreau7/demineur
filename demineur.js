@@ -306,7 +306,7 @@ var compterMines=function(mines,x,y,largeur,hauteur){
 var nbMinesAdj=0;
     for (var i=x-1;i<=x+1;i++){
         for(var j=y-1;j<=y+1;j++){
-            if(i>=0&&i<=largeur&&j>=0&&j<=hauteur){
+            if(i>=0&&i<largeur&&j>=0&&j<hauteur){
                 if(mines[i][j]==true)
                 nbMinesAdj+=1;
             }
