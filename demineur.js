@@ -345,16 +345,16 @@ var creerCasesDevoile=function(hauteur,largeur){
     return casesDevoile;
 };
 var verifierCasesDevoile= function(casesDevoile,nbMines,largeur,hauteur){
-    var nbCasesDevoile=0;
+    var nbCasesDevoilee=0;
     for(var i=0;i<largeur;i++){
         for (var j=0;j<hauteur;j++){
             if (casesDevoile[i][j]==true){
-                nbCasesDevoile++;
+                nbCasesDevoilee++;
             }
     
         }
     }
-    if((largeur*hauteur)-nbMines==casesDevoile){
+    if(((largeur*hauteur)-nbMines)==nbCasesDevoilee){
         return true;
     }else{
         return false;
@@ -402,7 +402,7 @@ while(finPartie==false){
         break;
     }
 partieGagnee=verifierCasesDevoile(casesDevoile,nbMines,largeur,hauteur);
-if(partieGagnee==true){break;}
+if(partieGagnee==true){finPartie==true;break;}
 }
 devoilerMinesFin(mines,largeur,hauteur,souris[0],souris[1]);
 };
