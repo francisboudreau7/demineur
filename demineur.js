@@ -378,14 +378,16 @@ var partieGagnee=false;
 var largCases=images[1].length;
 var hautCases=images[1][1].length;
 var nbMinesAdj;
+var premierTour=true;
 var casesDevoile=creerCasesDevoile(hauteur,largeur);
+var souris;
 afficherTuiles(largCases,hautCases,largeur,hauteur);
-var souris = attendreClic();
-var mines=placerMines(largeur,hauteur,nbMines, souris[0], souris[1]);
-afficherImage(souris[0]*largCases,souris[1]*hautCases,colormap,images[0]);
-
 while(finPartie==false){
     souris=attendreClic();
+    if(premierTour==true){
+    var mines=placerMines(largeur,hauteur,nbMines, souris[0], souris[1]);
+    premierTour=false;
+    }
     if (mines[souris[0]][souris[1]]==false){
         nbMinesAdj=compterMines(mines,souris[0],souris[1],largeur,hauteur);
         if(nbMinesAdj!=0){
